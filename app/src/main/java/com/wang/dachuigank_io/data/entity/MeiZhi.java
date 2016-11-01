@@ -98,4 +98,19 @@ public class MeiZhi {
     public void setWho(String who) {
         this.who = who;
     }
+
+    @Override
+    public String toString() {
+        return "MeiZhi{" +
+                "_id='" + _id + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", desc='" + desc + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                ", source='" + source + '\'' +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", used=" + used +
+                ", who='" + who + '\'' +
+                '}';
+    }
 }

@@ -15,7 +15,8 @@ import retrofit.RxJavaCallAdapterFactory;
  * Created by Administrator on 2016/10/30.
  */
 public class DaChuiRetrofit {
-    private static String baseUrl = "http://gank.io/api";
+//    private static String baseUrl = "http://gank.io";
+    private static String baseUrl = "http://gank.io";
     private static Gson mGson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
     private final GankApi mGankApi;
 
@@ -25,8 +26,8 @@ public class DaChuiRetrofit {
         client.setReadTimeout(20, TimeUnit.SECONDS);
         //设置retrofit
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(mGson))
+//                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         mGankApi = retrofit.create(GankApi.class);

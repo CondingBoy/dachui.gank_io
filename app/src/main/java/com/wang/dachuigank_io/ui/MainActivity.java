@@ -5,11 +5,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.wang.dachuigank_io.R;
 import com.wang.dachuigank_io.data.entity.MeiZhi;
 import com.wang.dachuigank_io.data.entity.MeiZhiData;
+import com.wang.dachuigank_io.net.DaChuiRetrofit;
 import com.wang.dachuigank_io.net.api.DaChuiFactiory;
 import com.wang.dachuigank_io.net.api.GankApi;
 import com.wang.dachuigank_io.ui.Adapter.MeiZhiListAdapter;
@@ -20,10 +22,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Observable;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends ToolbarActivity {
 
@@ -52,7 +56,8 @@ public class MainActivity extends ToolbarActivity {
             public MeiZhiData call(MeiZhiData meiZhiData, MeiZhiData meiZhiData2) {
                 return replaceData(meiZhiData,meiZhiData2);
             }
-        }).map(new Func1<MeiZhiData, List<MeiZhi>>() {
+        }).subscribeOn(Schedulers.io())
+                .map(new Func1<MeiZhiData, List<MeiZhi>>() {
             @Override
             public List<MeiZhi> call(MeiZhiData meiZhiData) {
                 return meiZhiData.results;
@@ -74,13 +79,14 @@ public class MainActivity extends ToolbarActivity {
                     mListAdapter = new MeiZhiListAdapter(MainActivity.this,mMeizhiListData);
                     rvMiezhi.setAdapter(mListAdapter);
                 }
-               
-                    
+
+
             }
         }, new Action1<Throwable>() {
             @Override
             public void call(Throwable throwable) {
-                Toast.makeText(MainActivity.this, "访问出错！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "访问出错t！", Toast.LENGTH_SHORT).show();
+                Log.e("ABC",throwable.getMessage()+":"+throwable.getStackTrace().toString());
             }
         });
     }
