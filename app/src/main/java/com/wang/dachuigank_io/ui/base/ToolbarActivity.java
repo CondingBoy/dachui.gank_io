@@ -7,10 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.BaseAdapter;
 
 import com.wang.dachuigank_io.R;
 
-public abstract class ToolbarActivity extends AppCompatActivity {
+public abstract class ToolbarActivity extends BaseActivity {
 
     protected AppBarLayout mAppBar;
     protected Toolbar mToolbar;
